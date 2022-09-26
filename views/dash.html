@@ -1,0 +1,49 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Blog....</title>
+    <link href="./css/materialize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/material-icons.css">
+    <!-- <link rel="stylesheet" href="./css/bg.css"> -->
+    <link rel="stylesheet" href="./css/css.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="bg"></div>
+        <div class="navbar-fixed">
+            <nav class="nav-extended">
+                <div class="nav-wrapper green">
+                    <a class="brand-logo" href="/dash">I.G_Codes</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <!-- <li><a href="/dash">Home</a></li> -->
+                        <li><a href="/dash">Categories<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href="/categories">Setting<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <!-- <li><a href="/contact">Contact Us</a></li> -->
+                        <!-- Dropdown Trigger -->
+        
+                        <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>{{user}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                      
+
+                        
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/logout">Log out</a></li>
+    </ul>
+
+
+    <h1>dash</h1>
+    <script src="./js/jquery-3.0.0.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/file.js"></script>
+</body>
+
+</html>

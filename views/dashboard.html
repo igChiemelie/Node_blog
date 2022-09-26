@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashbord</title>
+    <link href="./css/materialize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/material-icons.css">
+    <link href="./css/ozTV.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/main.css" />
+
+</head>
+
+<body>
+    <div class="navbar-fixed">
+        <nav class="nav-extended green">
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo">I.G_Codes</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>{{user}}<i class="material-icons right">arrow_drop_down</i></a></li> -->
+                    {{#login}}
+                    <li><a href="#" class='dropdown-trigger' data-target='dropdown1'>{{user}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {{/login}}
+                    {{^login}}
+                        <li><a class="" href="/gateway">Login</a></li>
+                    {{/login}}
+                </ul>
+               
+            </div>
+            <div class="nav-content">
+                <div class="container">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a class="active" href="#article">Article</a></li>
+                        <li class="tab"><a href="#cats">Categories</a></li>
+                        {{#userType}}
+                            <li class="tab"><a href="#users">Users</a></li>
+                        {{/userType}}
+                        {{^userType}}
+                            <li class="tab disabled"><a href="#users">Admin Section Only</a></li>
+                        {{/userType}}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="article" class="col s12 container">
+
+        <div class="row">
+            <div class="col s12">
+                <h1>Blog Articles</h1>
+            </div>
+            <div class="col s9">
+                <h2 class="artH2">All Articles</h2>
+            </div>
+            <div class="col s3">
+                <a class="btn-floating btn-large waves-effect waves-light pulse red right modal-trigger" href="#createArtModal"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Title</th>
+                    <th>Post</th>
+                    <th>Category</th>
+                    <th>DatePosted</th>
+                    <th><i class="material-icons">edit</i></th>
+                    <th><i class="material-icons">delete</i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#art}}
+                    <tr>
+                        <td>
+                            {{sn}}
+                        </td>
+                        <td>
+                            {{title}}
+                        </td>
+                        <td>
+                            {{post}}
+                        </td>
+                        <td>
+                            {{cate}}
+                        </td>
+                        <td>
+                            {{datePosted}}
+                        </td>
+                        <td>
+                            <a href="#" class="editArtModal" data-id="{{id}}" data-title="{{title}}" data-post="{{post}}" data-cat="{{catId}}">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="delOpenArtModal" data-artId="{{id}}" data-title="{{title}}" data-post="{{post}}" data-cat="{{catId}}">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {{/art}}
+                {{^art}}
+                    <div class="artMsg">
+                        No article yet. Click on the add button to create one.
+                    </div>
+                {{/art}}
+            </tbody>
+        </table>
+
+        <!-- Create Article Modal Structure -->
+        <div id="createArtModal" class="modal">
+            <div class="modal-content">
+                <h3>Create Article</h3>
+                <!-- enctype="multipart/form-data" -->
+                <form action="/article" method="POST" enctype="multipart/form-data" id="submitPost">
+                    <div class="input-field">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="artTitle">Article Name</label>
+                                <input type="text" name="artTitle" id="artTitle" placeholder="Enter Article Name" class="validate" required>
+                            </div>
+                            <div class="input-field col s6">
+                                <select name="artCat" id="artCat" required>
+                                    <option value="_">Select Article Category</option>
+                                    {{#cat}}
+                                        <option value="{{id}}">{{category}}</option>
+                                    {{/cat}}
+                                </select>
+                                <label for="artCat">Article Category</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <textarea id="textarea1" name="textarea1" class="materialize-textarea" placeholder="write post"></textarea>
+                                <label for="textarea1">write post</label>
+                            </div>
+                            <div class="file-field input-field col s12">
+                           
+                                <div class="btn">
+                                    <span>PICK FILE</span>
+                                    <input type="file" name="articleImg" id="articleImg">
+                                </div>
+                                <div class="file-path-wrapper white-text">
+                                    <input class="file-path  validate" type="text" required>
+                                    <label class="red-text">Size:Less than 500kb, Dim:1000x500pixels</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn waves-effect waves-light" id="artBtn">
+                            create
+                            <i class="material-icons right">create</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Article Modal Structure -->
+        <div id="editArtOpenModal" class="modal">
+            <div class="modal-content">
+                <h3>Edit Article</h3>
+                <form action="/editArticle" method="POST">
+                    <div class="input-field">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label for="editArtTitle">Edit Article Name</label>
+                                <input type="text" name="editArtTitle" id="editArtTitle" placeholder="Edit Article Name" class="validate" required>
+                            </div>
+                            <div class="input-field col s6">
+                                <select name="editArtCat" id="editArtCat" required>
+                                    <option value="_">Select Article Category</option>
+                                    {{#cat}}
+                                        <option value="{{id}}">{{category}}</option>
+                                    {{/cat}}
+                                </select>
+                                <label for="editArtCat">Edit Article Category</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="editArtText" name="editArtText" class="materialize-textarea" placeholder="Edit Post"></textarea>
+                                <label for="editArtText">Edit Post</label>
+                                <input type="hidden" name="artCatId" id="artCatId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn waves-effect waves-light" id="editArtBtn" disabled>
+                            create
+                            <i class="material-icons right">create</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Article Modal Structure -->
+        <div id="delArtModal" class="modal">
+            <div class="modal-content center-align">
+                <div id="deleteArticle">
+                    <h4>Delete Article?</h4>
+                    <p>Are you sure you want to delete this Article?</p>
+                    <input type="hidden" name="deleteArtInputId" id="deleteArtInputId">
+                    <div>
+                        <button class="btn-large waves-effect waves-light red" id="doDeleteArt">Yes</button>
+                        <button class="btn-large waves-effect waves-light modal-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+
+    <div id="cats" class="col s12 container">
+         <div class="row">
+            <div class="col s12">
+                <h1>Blog Categories</h1>
+            </div>
+            <div class="col s9">
+                <h2 class="artH2">All Categories</h2>
+            </div>
+            <div class="col s3">
+                <a class="btn-floating btn-large pulse waves-effect waves-light red right modal-trigger" href="#createCatModal"><i class="material-icons">add</i></a>
+
+            </div>
+        </div>
+     
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Category</th>
+                    <th><i class="material-icons">edit</i></th>
+                    <th><i class="material-icons">delete</i></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- <tr>
+                    <td>'.$sn.'</td>
+                    <td>'.$rows['category'].'</td>
+                    <td><a href="#" class="editCatModal" data-id="'.$rows['id'].'" data-value="'.$rows['category'].'"><i
+                                class="material-icons">edit</i></a></td>
+                    <td><a href="#" class="delModal" data-id="'.$rows['id'].'" data-value="'.$rows['category'].'"><i
+                                class="material-icons">delete</i></a></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="center-align"><i>no category created yet</i>
+                    <td>
+                </tr> -->
+
+                {{#cat}}
+                    <tr>
+                        <td>
+                            {{sn}}
+                        </td>
+                        <td>
+                            {{category}}
+                        </td>
+                        <td>
+                            <a href="#!" class="editCat" data-id="{{id}}" data-cat="{{category}}">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#delModal" class="delCat" data-id="{{id}}" data-cat="{{category}}">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+                {{/cat}}
+
+            </tbody>
+        </table>
+        <!--Create Modal Structure -->
+        <div id="createCatModal" class="modal">
+            <div class="modal-content">
+                <h2>
+                    Create Category
+                </h2>
+                <form class="col s12" id="createCatForm" action="/category" method="POST">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="Enter Category Name" id="catName" name="catName" type="text" required class="validate">
+                            <label for="catName">Category Name</label>
+
+                            <ul class="collection hide">
+                                <li class="collection-item yellow accent-2">Please ensure the category you want to
+                                    create does not already exist. Check the list below:</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="input-field col s6">
+                            <button class="btn waves-effect waves-light" type="submit" name="createCatBtn"
+                                id="createCatBtn">Create
+                                <i class="material-icons right">create</i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+   
+    </div>
+
+    <div id="users" class="col s12 container">
+        <div class="">
+             <h1>Blog Users</h1>
+             <h3>User's Details</h3>  
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Dob</th>
+                        <th>State</th>
+                        <th>Joined</th>
+                        <th><i class="material-icons">edit</i></th>
+                        <th><i class="material-icons">delete</i></th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    {{#userDetails}}
+                        <tr>
+                            <td>{{i}}</td>
+                            <td>{{fName}}</td>
+                            <td>{{lName}}</td>
+                            <td>{{uName}}</td>
+                            <td>{{email}}</td>
+                            <td>{{dob}}</td>
+                            <td>{{state}}</td>
+                            <td>{{dateJoined}}</td>
+                            <td><a href="#" class="editUser" data-id="{{id}}" data-fName="{{fName}}" data-lName="{{lName}}" data-uName="{{uName}}" data-email="{{email}}" data-dob="{{dob}}" data-state="{{state}}"><i class="material-icons">edit</i></a></td>
+                            <td><a href="#" class="delUser" data-id="{{id}}" data-fName="{{fName}}" data-lName="{{lName}}" data-uName="{{uName}}" data-email="{{email}}" data-dob="{{dob}}" data-state="{{state}}"><i class="material-icons">delete</i></a></td>
+                   
+                        </tr>
+                    {{/userDetails}}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Edit User's Modal Structure -->
+        <div id="editUserModal" class="modal bottom-sheet">
+            <div class="container">
+                <div class="modal-content">
+                    <h3>Create Article</h3>
+                    <h4>Edit User</h4>
+                    <form action="/editUser" method="post">
+                       <div class="input-field">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="editUserFname">Edit User's Firstname</label>
+                                    <input type="text" name="editUserFname" id="editUserfname" placeholder="Edit username" class="validate" required>
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="editUserLname">Edit User's Lastname</label>
+                                    <input type="text" name="editUserLname" id="editUserlname" placeholder="Edit lastname" class="validate" required>
+                                </div>
+                               <div class="col s6 input-field">
+                                    <input type="text" id="editUserUname" name="editUserUname" class="validate" required>
+                                    <label for="editUserUname">Edit User's Username</label>
+                                </div>
+                                <div class="col s6 input-field">
+                                    <input type="email" id="email" name="email" class="validate" required>
+                                    <label for="email">Edit User's Email</label>
+                                </div>
+                                <div class="col s6 input-field">
+                                    <!-- datepicker -->
+                                    <input type="date" class="" name="dob" id="dob">
+                                    <label for="dob">Edit Date of Birth</label>
+                                </div>
+                                
+                                <!-- <div class="input-field col s6">
+                                    <select name="artCat" id="artCat" required>
+                                        <option value="_">Select Article Category</option>
+                                        {{#cat}}
+                                            <option value="{{id}}">{{category}}</option>
+                                        {{/cat}}
+                                    </select>
+                                    <label for="artCat">Article Category</label>
+                                </div> -->
+                                <input type="hidden" id="editUserId" name="editUserId">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn waves-effect waves-light" id="editUserBtn" name="editUserBtn">edit<i class="material-icons">edit</i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal Structure -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Category</h3>
+            <form action="/editCategory" method="POST">
+                <!-- <div class="input-field"> -->
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="catInput">Category Name</label>
+                            <input type="text" name="editCatInput" id="editCatInput" placeholder="Enter Category Name" class="validate" required>
+                            <input type="hidden" name="editCatInputId" id="editCatInputId">
+                        </div>
+                    </div>
+                <!-- </div> -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn waves-effect waves-light" id="editCatBtn">
+                        edit
+                        <i class="material-icons right">edit</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+     <!-- Delete Category Modal Structure -->
+    <div id="delModal" class="modal">
+        <div class="modal-content center-align">
+            <div id="deleteCategory">
+                <h4>Delete Category?</h4>
+                <p>Are you sure you want to delete this Category?</p>
+                <input type="hidden" name="deleteCatInputId" id="deleteCatInputId">
+                <div>
+                    <button class="btn-large waves-effect waves-light red" id="doDeleteCat">Yes</button>
+                    <button class="btn-large waves-effect waves-light modal-close">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/logout">Log out</a></li>
+    </ul>
+    
+    <script src="./js/jquery-3.0.0.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/file.js"></script>
+</body>
+
+</html>

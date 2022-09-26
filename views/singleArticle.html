@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Article - Page</title>
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="stylesheet" href="./fonts/material-icons.css">
+    <link rel="stylesheet" href="./css/main.css" />
+    
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav class="nav-extended">
+            <div class="nav-wrapper green">
+                <a href="/" class="brand-logo">I.G_Codes</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/categories">Categories<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {{#login}}
+                        <li><a href="/dashboard">Dashbord</a></li>
+                        <li><a href="#" class='dropdown-trigger' data-target='dropdown1'>{{user}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {{/login}}
+                    {{^login}}
+                        <!-- <li><a class="" href="/gateway">Login</a></li> -->
+                        <li><a href="/gateway">Account<i class="material-icons right"></i></a></li>
+                    {{/login}}
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="imgDiv">
+        <div class="secondImgDiv">
+
+            <div class="firstIndexTxtDiv">
+                <h1 class="h1Index center">Node App proj.</h1>
+                <h3 class="h3Index center">Node Js, a way of achieving your results <br>with less line of codes.</h3>
+            </div>
+            <div class="container">
+                <div class="collecDiv"></div>
+                    {{#dbRows}}
+                        <nav>
+                            <div class="nav-wrapper white">
+                                <div class="col s12">
+                                    <a href="/" class="breadcrumb" style="margin-left: 18px;">Home</a>
+                                    <a href="{{articles}}" class="breadcrumb">{{title}}</a>
+                                </div>
+                            </div>
+                        </nav>
+                        <ul class="collection">
+                            <li class="collection-item">
+                                <small class="grey-text">{{names}}</small>
+                                <h4>{{category}}</h4>
+                                <p>{{post}}</p>
+                            </li>
+                        </ul>
+                    {{/dbRows}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dropdown Content Section -->
+    <ul class="dropdown-content" id="dropdown1">
+        <li>
+            <a href="/logout">Logout</a>
+        </li>
+    </ul>
+
+    <script src="./js/jquery-3.0.0.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/file.js"></script>
+</body>
+</html>

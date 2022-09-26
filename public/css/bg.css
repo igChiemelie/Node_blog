@@ -1,0 +1,12 @@
+.bg {
+    background: #7b7b7c 50% no-repeat url(../media/img/ray.jpg);
+    background-size: cover;
+    -webkit-animation: 30s linear infinite a;
+    animation: 30s linear infinite a;
+    background-size: cover;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: calc(100vw + 500px);
+}

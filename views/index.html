@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Page</title>
+    <link href="./css/materialize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/material-icons.css">
+    <link href="./css/ozTV.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body>
+   
+    <div class="navbar-fixed">
+        <nav class="nav-extended navFeature">
+            <div class="nav-wrapper green">
+                <a href="/" class="brand-logo">I.G_Codes</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- <li><a href="/categories">Categories<i class="material-icons right">arrow_drop_down</i></a></li> -->
+                    <li><a href="#!">Categories<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {{#login}}
+                        <li><a href="/dashboard">Dashboard<i class="material-icons right">contacts</i></a></li>
+                        <li><a href="#" class='dropdown-trigger' data-target='dropdown1'>{{user}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {{/login}}
+                    {{^login}}
+                        <!-- <li><a class="" href="/gateway">Login</a></li> -->
+                        <li><a href="/gateway">Account<i class="material-icons right"></i></a></li>
+                    {{/login}}
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- <div class="container">
+        <h1>Home</h1>
+
+        {{#titles}}
+            <p>{{name}}</p>
+        {{/titles}}
+    </div> -->
+   
+
+    <div class="imgDiv">
+        <div class="secondImgDiv">
+            <div class="firstIndexTxtDiv">
+                <h1 class="h1Index center">Node App.🧠</h1>
+                <h3 class="h3Index center">Node Js: Npm express nodemon <br>what have you.🤷‍♂️😜😎👌</h3>
+            </div>
+            <div class="container">
+                <div class="collecDiv">
+                    {{#dbRows}}
+                        <ul class="collection with-header">
+                            <li class="collection-header" style="text-transform: capitalize;"><h4>{{category}}</h4></li>
+                            <li class="collection-item">
+                                <a href="#" id="dataTitle" class="dataTitle" data-sigArtId="{{artId}}">{{title}}</a>
+                                <br>
+                                {{post}}
+                            </li>
+                        </ul>
+                    {{/dbRows}}
+                </div>
+                <input type="hidden" name="sigArtId" id="sigArtId">
+            </div>
+        </div> 
+    </div>
+
+    <!-- Dropdown Structure -->
+    <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/logout">Log out</a></li>
+    </ul>
+
+    <footer class="page-footer green">
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="center">
+                    <a class="grey-text text-lighten-4 center" href="#!">igc@gmail.com &copy; {{newDate}} - 2028 Copyright Text</a>
+                </div>
+    
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/jquery-3.0.0.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/file.js"></script>
+    <script>
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+
+</html>

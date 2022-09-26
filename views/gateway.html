@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway</title>
+    <link href="./css/materialize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/material-icons.css">
+    <link href="./css/ozTV.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/file.css">
+</head>
+
+<body>
+    <div class="navbar-fixed">
+        <nav class="nav-extended">
+            <div class="nav-wrapper green">
+                <a href="/" class="brand-logo">I.G_Codes</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a class="active" href="/">Home<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="/gateway">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col s4"></div>
+        <div class="col s4 allForm">
+            <div class="col s12 m6 l12 z-depth-4 card-panel login-div">
+                <h5 class="center-align ">Login</h5>
+                {{#message}}
+                    <div class="alert {{msgType}}">
+                        {{message}}
+                    </div>
+                {{/message}}
+                <form method="POST" action="/loginController">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix pt-2">person_outline</i>
+                            <input id="uName" name="uName" required type="text">
+                            <label for="uName" class="center-align">Username</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix pt-2">lock_outline</i>
+                            <input id="password" name="password" type="password" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button type="submit" class="btn waves-effect waves-light blue col s12">Login</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <p class="centre">
+                        <small>
+                            Don't have an account? <a href="#" id="toRegister">Create Account</a>
+                        </small>
+                    </p>
+                    <p class="centre">
+                        <small>
+                            Forgot Password?<a href="" id="forgotPas">Recover Account</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Users Register Form -->
+            <div class="row">
+                <div class="col s12 m6 l12 z-depth-4 card-panel reg-div hide">
+                    <h5 class="center-align ">Register</h5>
+                    <form class="login-form" method="POST" action="/signUpController">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="fName" name="fName" required type="text">
+                                <label for="fName" class="center-align">First Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">person_outline</i>
+                                <input id="lName" name="lName" required type="text">
+                                <label for="lName" class="center-align">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">person_outline</i>
+                                <input id="uName" name="uName" required type="text">
+                                <label for="uName" class="center-align">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">mail_outline</i>
+                                <input id="email" name="email" type="email">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">lock_open</i>
+                                <input id="password" name="password" type="password">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">lock_open</i>
+                                <input id="cpassword" name="cpassword" type="password">
+                                <label for="cpassword">Confirm Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="telephone" name="telephone" type="number" class="validate">
+                                <label for="telephone">Telephone</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" class="datepicker" name="dob" id="dob">
+                                <label for="dob">Date of Birth</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">home</i>
+                                <input type="text" class="validate" name="addr" id="addr">
+                                <label for="addr">Address</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">edit</i>
+                                <textarea id="textarea1" class="materialize-textarea" name="textarea1"
+                                    data-length="100"></textarea>
+                                <label for="textarea1">Message</label>
+                            </div>
+                        </div>
+                        <div class="input-field col s12">
+                            <select id="state" name="state">
+                                <option value="" disabled selected>State</option>
+                                <option value="Abia">Abia</option>
+                                <option value="Adamawa">Adamawa</option>
+                                <option value="Akwa Ibom">Akwa Ibom</option>
+                                <option value="Anambra">Anambra</option>
+                                <option value="Bauchi">Bauchi</option>
+                                <option value="Bayelsa">Bayelsa</option>
+                                <option value="Benue">Benue</option>
+                                <option value="Borno">Borno</option>
+                                <option value="Cross River">Cross River</option>
+                                <option value="Delta">Delta</option>
+                                <option value="Ebonyi">Ebonyi</option>
+                                <option value="Edo">Edo</option>
+                                <option value="Ekiti">Ekiti</option>
+                                <option value="Enugu">Enugu</option>
+                                <option value="Gombe">Gombe</option>
+                                <option value="Imo">Imo</option>
+                                <option value="Jigawa">Jigawa</option>
+                                <option value="Kaduna">Kaduna</option>
+                                <option value="Kano">Kano</option>
+                                <option value="Katsina">Katsina</option>
+                                <option value="Kebbi">Kebbi</option>
+                                <option value="Kogi">Kogi</option>
+                                <option value="Kwara">Kwara</option>
+                                <option value="Lagos">Lagos</option>
+                                <option value="Nasarawa">Nasarawa</option>
+                                <option value="Niger">Niger</option>
+                                <option value="Ogun">Ogun</option>
+                                <option value="Ondo">Ondo</option>
+                                <option value="Osun">Osun</option>
+                                <option value="Oyo">Oyo</option>
+                                <option value="Plateau">Plateau</option>
+                                <option value="Rivers">Rivers</option>
+                                <option value="Sokoto">Sokoto</option>
+                                <option value="Taraba">Taraba</option>
+                                <option value="Yobe">Yobe</option>
+                                <option value="Zamfara">Zamfara</option>
+                                <option value="Abuja">Abuja</option>
+                            </select>
+                            <label>Nigeria</label>
+                        </div>
+                        <div class="input-field row">
+                            <p class="col s3 offset-s1">
+                                <b>Gender:</b>
+                            </p>
+                            <p class="col s4">
+                                <label>
+                                    <input name="gender" value="M" id="gender" type="radio" />
+                                    <span>Male</span>
+                                </label>
+                            </p>
+                            <p class="col s4">
+                                <label>
+                                    <input name="gender" value="F" id="gender" type="radio" />
+                                    <span>Female</span>
+                                </label>
+                            </p>
+                        </div>
+                        <ul class="input-field row">
+                            <li class="col s2 offset-s1">
+                                <b>Hobbies:</b>
+                            </li>
+                            <li class="col s3">
+                                <label>
+                                    <input type="checkbox" id="collect" value="Football" name="collect[]" />
+                                    <span>Football</span>
+                                </label>
+                            </li>
+                            <li class="col s3">
+                                <label>
+                                    <input type="checkbox" id="collect" value="Reading" name="collect[]" />
+                                    <span>Reading</span>
+                                </label>
+                            </li>
+                            <li class="col s3">
+                                <label>
+                                    <input type="checkbox" id="collect" value="Coding" name="collect[]" />
+                                    <span>Coding</span>
+                                </label>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button type="submit" class="btn waves-effect waves-light blue col s12"><i
+                                        class="material-icons">lock_open</i>Register</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="centre">
+                                <small class="whiteTxt">
+                                    Already have an account? <a href="#" id="toLogin">Login</a>
+                                </small>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-overlay"></div>
+            <!-- forgot password details -->
+            <div class="col s12 m6 l12 z-depth-4 card-panel forgot-div hide">
+                <h5 class="center-align">Password Reset</h5>
+                <form method="POST" action="/forgotPasswordController">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix pt-2">mail_outline</i>
+                            <input id="email" type="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <a class="btn waves-effect waves-light blue col s12">Login</a>
+                        </div>
+                    </div>
+                    <p class="centre">
+                        <small>
+                            Already have an account?<a href="" id="login-div">Login</a>
+                        </small>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="col s4"></div>
+    </div>
+
+    <script src="./js/jquery-3.0.0.min.js"></script>
+    <script src="./js/materialize.js"></script>
+    <script src="./js/file.js"></script>
+</body>
+
+</html>
